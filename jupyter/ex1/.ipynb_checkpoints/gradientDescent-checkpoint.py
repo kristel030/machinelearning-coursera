@@ -19,24 +19,19 @@ def gradientDescent(X, y, theta, alpha, iterations):
         #        of the cost function (computeCost) and gradient here.
         # 
 
-        cost = cc.computeCost(X, y, theta)
-        # print('cost: ' + str(cost))
-        
-        # Save the cost J in every iteration  
+        # Calculate and save the cost J in every iteration
+        cost = cc.computeCost(X, y, theta) 
         J_history[iter, 0] = cost;
         
-        # perform a single gradient step
+        # Perform a single gradient step
         # --> vectorized implementation of 
         #     theta = theta - alpha * 1/m * sum(i=1:m): ( (h(x(i)) - y(i))^2 * x(i))
         #       where h(x)) = theta'*x
 
+        # calculate the hypothesis values for the current theta
         h = X @ theta
-        # theta = theta - np.transpose((np.transpose(h-y) @ X * alpha * 1/m))
-        theta = theta - ((h-y).T @ X * alpha * 1/m).T
+        
+        # slightly change (improve) theta for the next iteration, using the learning rate 'alpha' as one of the parameters
+        theta = theta - (alpha * (h-y).T @ X * 1/m).T
         
     return theta, J_history
-    
-    
-    ## Octave implementation:
-	# h = X*theta;
-	# theta = theta - ((h-y)' * X * alpha * 1/m)';

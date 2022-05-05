@@ -28,12 +28,10 @@ def gradientDescent(X, y, theta, alpha, iterations):
         #     theta = theta - alpha * 1/m * sum(i=1:m): ( (h(x(i)) - y(i))^2 * x(i))
         #       where h(x)) = theta'*x
 
+        # calculate the hypothesis values for the current theta
         h = X @ theta
-        theta = theta - ((h-y).T @ X * alpha * 1/m).T
+        
+        # slightly change (improve) theta for the next iteration, using the learning rate 'alpha' as one of the parameters
+        theta = theta - (alpha * (h-y).T @ X * 1/m).T
         
     return theta, J_history
-    
-    
-    ## Octave implementation:
-    # h = X*theta;
-    # theta = theta - ((h-y)' * X * alpha * 1/m)';
